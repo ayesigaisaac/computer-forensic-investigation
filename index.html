@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computer Forensics Tasks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Forensics Project Hub</div>
+    <nav class="topnav">
+      <a href="#taskList">Tasks</a>
+      <a href="#resources">Resources</a>
+      <a href="#progress">Progress</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="hero frame">
+      <div class="hero-badge">Investigation Workspace</div>
+      <h1>Computer Forensics Investigation Dashboard</h1>
+      <p class="sub">Collect evidence, track every practical task, and present your findings professionally.</p>
+      <div class="hero-strip">
+        <span class="dot blue"></span>
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <div class="hero-actions">
+        <button id="expandAllBtn" type="button">Expand All</button>
+        <button id="collapseAllBtn" type="button">Collapse All</button>
+      </div>
+    </section>
+    <p class="sub">Track progress, open folders quickly, and keep all task resources in one place.</p>
+
+    <section class="toolbar frame">
+      <input id="searchInput" type="search" placeholder="Search task by name...">
+      <select id="statusFilter" aria-label="Filter by status">
+        <option value="all">All</option>
+        <option value="open">Open</option>
+        <option value="done">Completed</option>
+      </select>
+      <button id="resetBtn" type="button">Reset Progress</button>
+    </section>
+
+    <section class="progress-panel frame">
+      <div class="progress-head">
+        <h2>Completion Progress</h2>
+        <p id="progressText">0%</p>
+      </div>
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </section>
+
+    <section class="task-list" id="taskList">
+      <article class="task" data-id="task1">
+        <label><input type="checkbox" class="done"> Task 1: Disk Image</label>
+        <a href="#task1-detail">View Task</a>
+        <p>Create/acquire disk image, load into Autopsy, recover 5 files and 2 deleted files.</p>
+      </article>
+
+      <article class="task" data-id="task2">
+        <label><input type="checkbox" class="done"> Task 2: Wireshark</label>
+        <a href="#task2-detail">View Task</a>
+        <p>Analyze traffic with filters (`http`, `dns`, `ip.addr`) and identify suspicious activity.</p>
+      </article>
+
+      <article class="task" data-id="task3">
+        <label><input type="checkbox" class="done"> Task 3: NMap</label>
+        <a href="#task3-detail">View Task</a>
+        <p>Run basic, service-detection, and aggressive scans; report open ports/services/vulns.</p>
+      </article>
+
+      <article class="task" data-id="task4">
+        <label><input type="checkbox" class="done"> Task 4: Autopsy Malware</label>
+        <a href="#task4-detail">View Task</a>
+        <p>Do file system analysis, timeline, keywords (`password`, `bank`), and suspicious files.</p>
+      </article>
+
+      <article class="task" data-id="task5">
+        <label><input type="checkbox" class="done"> Task 5: Mobile Cloud Logs</label>
+        <a href="#task5-detail">View Task</a>
+        <p>Analyze mobile/cloud logs for login attempts and suspicious behavior evidence.</p>
+      </article>
+
+      <article class="task" data-id="task6">
+        <label><input type="checkbox" class="done"> Task 6: Memory Malware</label>
+        <a href="#task6-detail">View Task</a>
+        <p>Use memory dump analysis to identify running/suspicious processes and indicators.</p>
+      </article>
+
+      <article class="task" data-id="task7">
+        <label><input type="checkbox" class="done"> Task 7: Final Report</label>
+        <a href="#task7-detail">View Task</a>
+        <p>Compile tools, screenshots, findings, attack summary, and final recommendations.</p>
+      </article>
+
+      <article class="task" data-id="video">
+        <label><input type="checkbox" class="done"> Video Presentation</label>
+        <a href="#video-detail">View Task</a>
+        <p>Record a professional Zoom explanation (camera on, under 25 minutes).</p>
+      </article>
+    </section>
+
+    <section class="detail frame" id="resources">
+      <h2>Task Resources</h2>
+      <p class="sub">Expand each task to view links, objective, and notes.</p>
+    </section>
+
+    <details class="detail" id="task1-detail" open>
+      <summary>Task 1 Details</summary>
+      <p><strong>Title:</strong> Using Autopsy to retrieve deleted files</p>
+      <p><strong>Aim:</strong> Use Autopsy to recover and analyze deleted files from a disk image.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./01_Task1_Disk_Image/" target="_blank">Task 1 Folder</a></li>
+        <li><a href="./01_Task1_Disk_Image/Using-the-Autopsy-retrieve-the-deleted-files/README.md" target="_blank">Local README</a></li>
+      </ul>
+      <h3>Workflow</h3>
+      <ol>
+        <li>Create a new case in Autopsy.</li>
+        <li>Add the disk image or local disk as a data source.</li>
+        <li>Run ingest and wait for processing to complete.</li>
+        <li>Open <strong>File Views -> Deleted Files</strong>.</li>
+        <li>Locate target deleted files and extract them.</li>
+        <li>Store extracted files in your evidence output folder.</li>
+      </ol>
+      <h3>Checklist</h3>
+      <label class="checkline"><input type="checkbox" class="t1-check" data-id="t1_case"> Case created</label>
+      <label class="checkline"><input type="checkbox" class="t1-check" data-id="t1_source"> Data source added</label>
+      <label class="checkline"><input type="checkbox" class="t1-check" data-id="t1_deleted"> Deleted files identified</label>
+      <label class="checkline"><input type="checkbox" class="t1-check" data-id="t1_extract"> Files extracted</label>
+      <label class="checkline"><input type="checkbox" class="t1-check" data-id="t1_evidence"> Screenshots/evidence saved</label>
+      <h3>Task 1 Screenshots</h3>
+      <div class="image-grid">
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image.png" alt="Task 1 screenshot 1"><figcaption>Autopsy case start screen.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy.png" alt="Task 1 screenshot 2"><figcaption>New case details and initialization.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 2.png" alt="Task 1 screenshot 3"><figcaption>Data source selection step.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 3.png" alt="Task 1 screenshot 4"><figcaption>Disk image/host evidence loading.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 4.png" alt="Task 1 screenshot 5"><figcaption>Ingest processing view.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 5.png" alt="Task 1 screenshot 6"><figcaption>File Views navigation.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 6.png" alt="Task 1 screenshot 7"><figcaption>Deleted files listed.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 7.png" alt="Task 1 screenshot 8"><figcaption>Recovery target selection.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 8.png" alt="Task 1 screenshot 9"><figcaption>Extract file action.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 9.png" alt="Task 1 screenshot 10"><figcaption>Recovered files output path.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./01_Task1_Disk_Image/screenshort/image copy 10.png" alt="Task 1 screenshot 11"><figcaption>Recovered evidence confirmation.</figcaption></figure>
+      </div>
+    </details>
+
+    <details class="detail" id="task2-detail">
+      <summary>Task 2 Details</summary>
+      <p><strong>Title:</strong> Wireshark Challenge</p>
+      <p><strong>Aim:</strong> Analyze packet captures and identify network events/artifacts.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./02_Task2_Wireshark/" target="_blank">Task 2 Folder</a></li>
+        <li><a href="./02_Task2_Wireshark/WireShark_Challenge/" target="_blank">Local Repo Folder</a></li>
+      </ul>
+      <h3>Task 2 Screenshots</h3>
+      <div class="image-grid">
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image.png" alt="Task 2 screenshot 1"><figcaption>Capture started on active interface.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy.png" alt="Task 2 screenshot 2"><figcaption>Filter applied: <code>http</code>.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 2.png" alt="Task 2 screenshot 3"><figcaption>HTTP packet list and request/response flow.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 3.png" alt="Task 2 screenshot 4"><figcaption>Filter applied: <code>dns</code>.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 4.png" alt="Task 2 screenshot 5"><figcaption>DNS query/response packet details.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 5.png" alt="Task 2 screenshot 6"><figcaption>Filter applied: <code>ip.addr == 8.8.8.8</code>.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 6.png" alt="Task 2 screenshot 7"><figcaption>Traffic conversation with suspected external IP.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 7.png" alt="Task 2 screenshot 8"><figcaption>Expanded packet fields (IP/TCP/Protocol layers).</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 8.png" alt="Task 2 screenshot 9"><figcaption>Stream-level analysis evidence.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 9.png" alt="Task 2 screenshot 10"><figcaption>Follow TCP stream output.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 10.png" alt="Task 2 screenshot 11"><figcaption>Capture save/export evidence.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 11.png" alt="Task 2 screenshot 12"><figcaption>Supporting command output (DNS/Ping).</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./02_Task2_Wireshark/screenshorts/image copy 12.png" alt="Task 2 screenshot 13"><figcaption>Final suspicious activity review snapshot.</figcaption></figure>
+      </div>
+    </details>
+
+    <details class="detail" id="task3-detail">
+      <summary>Task 3 Details</summary>
+      <p><strong>Title:</strong> Penetration Testing Lab - Nmap</p>
+      <p><strong>Aim:</strong> Run Nmap scans and document open ports, services, and host information.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./03_Task3 _NMap/" target="_blank">Task 3 Folder</a></li>
+        <li><a href="./03_Task3 _NMap/penetration-testing-lab-nmap/" target="_blank">Local Repo Folder</a></li>
+      </ul>
+      <h3>Preview</h3>
+      <img
+        class="evidence-image"
+        src="./03_Task3 _NMap/penetration-testing-lab-nmap/images/nmap_scan.png"
+        alt="Nmap scan evidence screenshot"
+      >
+    </details>
+
+    <details class="detail" id="task4-detail">
+      <summary>Task 4 Details</summary>
+      <p><strong>Title:</strong> File System Forensics with Autopsy and Sleuth Kit</p>
+      <p><strong>Aim:</strong> Investigate file system artifacts using Autopsy and Sleuth Kit workflows.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./04_Task4_autospy_malware/" target="_blank">Task 4 Folder</a></li>
+        <li><a href="./04_Task4_autospy_malware/File-System-Forensics-with-Autopsy-and-Sleuth-Kit/" target="_blank">Local Repo Folder</a></li>
+      </ul>
+      <h3>Task 4 Screenshots</h3>
+      <div class="image-grid">
+        <figure class="shot"><img class="evidence-image" src="./04_Task4_autospy_malware/scrrenshots/image.png" alt="Task 4 screenshot 1"><figcaption>Autopsy file system/malware analysis evidence.</figcaption></figure>
+        <figure class="shot"><img class="evidence-image" src="./04_Task4_autospy_malware/scrrenshots/image copy.png" alt="Task 4 screenshot 2"><figcaption>Timeline/keyword/suspicious file review evidence.</figcaption></figure>
+      </div>
+    </details>
+
+    <details class="detail" id="task5-detail">
+      <summary>Task 5 Details</summary>
+      <p><strong>Title:</strong> Mobile Cloud Logs</p>
+      <p><strong>Aim:</strong> Collect and analyze mobile/cloud log artifacts for forensic findings.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./05_Task5_Mobille_cloud_logs/" target="_blank">Task 5 Folder</a></li>
+      </ul>
+      <h3>Task 5 Screenshots</h3>
+      <p class="placeholder">No images in Task 5 folder yet. Add screenshots to display them here.</p>
+    </details>
+
+    <details class="detail" id="task6-detail">
+      <summary>Task 6 Details</summary>
+      <p><strong>Title:</strong> Memory Forensics using Volatility3</p>
+      <p><strong>Aim:</strong> Analyze memory images to identify malware traces and suspicious processes.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./06_Task6_Memory_Malware/" target="_blank">Task 6 Folder</a></li>
+        <li><a href="./06_Task6_Memory_Malware/Memory-Forensics-using-Volatility3-/" target="_blank">Local Repo Folder</a></li>
+      </ul>
+      <h3>Task 6 Screenshots</h3>
+      <div class="image-grid">
+        <figure class="shot"><img class="evidence-image" src="./06_Task6_Memory_Malware/screenshots/image.png" alt="Task 6 screenshot 1"><figcaption>Memory analysis process evidence.</figcaption></figure>
+      </div>
+    </details>
+
+    <details class="detail" id="task7-detail">
+      <summary>Task 7 Details</summary>
+      <p><strong>Title:</strong> Final Report</p>
+      <p><strong>Aim:</strong> Consolidate results from all tasks into one final forensic report.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./07_Task7_Final_Report/" target="_blank">Task 7 Folder</a></li>
+      </ul>
+    </details>
+
+    <details class="detail" id="video-detail">
+      <summary>Video Presentation</summary>
+      <p><strong>Aim:</strong> Prepare and store your recorded presentation and supporting materials.</p>
+      <h3>Direct Links</h3>
+      <ul>
+        <li><a href="./video presentation/" target="_blank">Video Presentation Folder</a></li>
+      </ul>
+    </details>
+
+    <footer>
+      <p id="progress">0 / 8 completed</p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+  <div id="imageModal" class="image-modal" aria-hidden="true">
+    <button id="imageModalClose" class="image-modal-close" type="button" aria-label="Close image preview">Close</button>
+    <img id="imageModalPreview" class="image-modal-preview" src="" alt="Evidence preview">
+  </div>
+</body>
+</html>

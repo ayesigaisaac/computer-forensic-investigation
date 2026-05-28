@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forensic File Explorer</title>
+  <style>
+    :root {
+      --bg: #050705;
+      --panel: #0b120b;
+      --line: #1f3b1f;
+      --text: #d9ffd9;
+      --muted: #8fb18f;
+      --ok: #59f17c;
+      --warn: #d6ff72;
+      --danger: #66ff99;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Consolas, "Courier New", monospace;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, #102010 0%, transparent 30%),
+        radial-gradient(circle at 100% 100%, #0f1b0f 0%, transparent 35%),
+        var(--bg);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .app {
+      max-width: 1100px;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 34px rgba(0, 0, 0, 0.45);
+    }
+
+    .header {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      color: var(--text);
+      background: #0f1f0f;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover { border-color: var(--ok); transform: translateY(-1px); }
+
+    #removeBtn { background: #173517; }
+    #resetBtn { background: #1a2a1a; }
+
+    .status {
+      min-height: 22px;
+      color: var(--warn);
+      font-size: 13px;
+      padding: 8px 16px 0;
+    }
+
+    .explorer {
+      padding: 16px;
+    }
+
+    .pathbar {
+      color: var(--muted);
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .folder {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      background: #0a160a;
+      transition: opacity 0.45s ease, transform 0.45s ease, filter 0.45s ease;
+    }
+
+    .folder .icon {
+      font-size: 20px;
+    }
+
+    .folder .name {
+      overflow-wrap: anywhere;
+      font-size: 14px;
+    }
+
+    .folder.real .icon { color: var(--ok); }
+    .folder.forensic .icon { color: #ffe082; }
+
+    .folder.removing {
+      opacity: 0;
+      transform: scale(0.92) translateY(6px);
+      filter: blur(1.5px);
+      pointer-events: none;
+    }
+
+    .success {
+      color: var(--ok);
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 10px; }
+      .header { padding: 12px; }
+      .title { font-size: 16px; }
+      .grid { grid-template-columns: 1fr; }
+      button { width: 100%; }
+      .toolbar { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <section class="app">
+    <header class="header">
+      <div class="title">Forensic File Explorer</div>
+      <div class="toolbar">
+        <button id="removeBtn" type="button">Remove Forensic Folders</button>
+        <button id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <div id="status" class="status"></div>
+
+    <main class="explorer">
+      <div class="pathbar">~ / case-root /</div>
+      <div id="folderGrid" class="grid"></div>
+    </main>
+  </section>
+
+  <script>
+    const INITIAL_FOLDERS = [
+      { name: "01_Task1_Disk_Image", type: "forensic" },
+      { name: "screenshot", type: "forensic" },
+      { name: "Using-the-Autopsy-retrieve-the-deleted-files", type: "forensic" },
+      { name: "Documents", type: "real" },
+      { name: "Photos", type: "real" },
+      { name: "Work", type: "real" },
+      { name: "Personal", type: "real" },
+      { name: "Projects", type: "real" }
+    ];
+
+    const TARGETS = new Set([
+      "01_Task1_Disk_Image",
+      "screenshot",
+      "Using-the-Autopsy-retrieve-the-deleted-files"
+    ]);
+
+    const grid = document.getElementById("folderGrid");
+    const removeBtn = document.getElementById("removeBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const status = document.getElementById("status");
+
+    let folders = [...INITIAL_FOLDERS];
+
+    function getIcon(type) {
+      return type === "forensic" ? "📁" : "🗂️";
+    }
+
+    function render() {
+      grid.innerHTML = "";
+      folders.forEach((folder) => {
+        const item = document.createElement("article");
+        item.className = `folder ${folder.type}`;
+        item.dataset.name = folder.name;
+        item.innerHTML = `
+          <span class="icon">${getIcon(folder.type)}</span>
+          <span class="name">${folder.name}</span>
+        `;
+        grid.appendChild(item);
+      });
+    }
+
+    function showMessage(text, ok = false) {
+      status.textContent = text;
+      status.classList.toggle("success", ok);
+    }
+
+    function removeForensicFolders() {
+      const toRemove = Array.from(grid.querySelectorAll(".folder"))
+        .filter((el) => TARGETS.has(el.dataset.name));
+
+      if (!toRemove.length) {
+        showMessage("Forensic folders are already hidden.");
+        return;
+      }
+
+      toRemove.forEach((el) => el.classList.add("removing"));
+
+      setTimeout(() => {
+        folders = folders.filter((f) => !TARGETS.has(f.name));
+        render();
+        showMessage("Displaying only real content", true);
+      }, 460);
+    }
+
+    function resetFolders() {
+      folders = [...INITIAL_FOLDERS];
+      render();
+      showMessage("All folders restored.");
+    }
+
+    removeBtn.addEventListener("click", removeForensicFolders);
+    resetBtn.addEventListener("click", resetFolders);
+
+    render();
+  </script>
+</body>
+</html>
