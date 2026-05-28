@@ -1,0 +1,78 @@
+# TCP SYN Scan (-sS) + OS Detection (-O)
+
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-28 15:37 EDT
+Nmap scan report for 192.168.1.6
+Host is up (0.00099s latency).
+All 1000 scanned ports on 192.168.1.6 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+Too many fingerprints match this host to give specific OS details.
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 6.66 seconds
+
+---
+
+# Full TCP Port Scan (-sV -O -p-)
+
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-28 15:38 EDT
+Nmap scan report for 192.168.1.6
+Host is up (0.00052s latency).
+All 65535 scanned ports on 192.168.1.6 are in ignored states.
+Not shown: 65535 filtered tcp ports (no-response)
+
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port.
+Aggressive OS guesses:
+- D-Link DFL-700 firewall (89%)
+- HP Officejet Pro 8500 printer (89%)
+- IBM i 7.4 (89%)
+- ReactOS 0.3.7 (89%)
+- Sanyo PLC-XU88 digital video projector (89%)
+- Sonus GSX9000 VoIP proxy (88%)
+- Asus WL-500gP wireless broadband router (88%)
+- Microsoft Windows 2000 (88%)
+- Microsoft Windows Server 2003 Enterprise Edition SP2 (88%)
+- Microsoft Windows Server 2003 SP2 (88%)
+
+No exact OS matches for host (test conditions non-ideal).
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 407.08 seconds
+
+---
+
+# Top 200 UDP Ports Scan (-sU --top-ports 200)
+
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-28 15:49 EDT
+Nmap scan report for 192.168.1.6
+Host is up (0.00084s latency).
+All 200 scanned ports on 192.168.1.6 are in ignored states.
+Not shown: 200 open|filtered udp ports (no-response)
+
+Nmap done: 1 IP address (1 host up) scanned in 2.36 seconds
+
+---
+
+📋 Summary:
+
+- Host IP: 192.168.1.6
+- Host Status: Up
+- Open TCP Ports: None detected (all filtered)
+- Open UDP Ports: None detected (open|filtered responses)
+- OS Detection: No exact match; closest guesses include Windows 2000/Server 2003 and some network devices.
+- Scan Types Performed:
+  - TCP SYN Scan with OS Detection
+  - Full TCP Port Scan with Service Detection
+  - Top 200 UDP Ports Scan
+- Observations:
+  - Host is highly filtered (likely behind a firewall).
+  - TCP and UDP ports did not respond.
+  - OS detection was inconclusive due to lack of open ports.
+- Total Scan Time: ~416 seconds across all scans
+
+📋 Notes Based on Your Real Results:
+
+Observation	Meaning
+All TCP ports filtered	Likely a firewall blocking Nmap TCP SYN packets
+**UDP ports open	filtered**
+OS guessing unreliable	Without open ports, Nmap struggles to fingerprint OS properly
+Multiple OS guesses	Windows 2000 / 2003 Server appear, but confidence is low
